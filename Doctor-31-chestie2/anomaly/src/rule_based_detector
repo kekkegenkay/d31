@@ -1,0 +1,213 @@
+import pandas as pd
+import numpy as np
+
+# --- Constants for Anomaly Detection Rules & Severity/Scoring ---
+SEVERITY_LEVEL_MAP = {"Red": 3, "Orange": 2, "Yellow": 1, "": 0}
+REVERSE_SEVERITY_MAP = {v: k for k, v in SEVERITY_LEVEL_MAP.items()}
+
+# Define individual rule severities and base scores
+RULE_DEFINITIONS = {
+    "R_AGE_CORRUPT": ("Age is extremely high (potential data corruption)", "Red", 110),
+    "R1.1_AGE_OVER_120": ("Age > 120 years (biologically implausible)", "Red", 100),
+    "R1.2_AGE_INVALID_LOW": ("Age <= 0 years (invalid)", "Red", 100),
+    "R2.1_WEIGHT_LOW": ("Weight < 20 kg (critically low for adult/older child)", "Red", 90),
+    "R2.2_WEIGHT_HIGH": ("Weight > 300 kg (critically high)", "Red", 90),
+    "R2.4_CHILD_EXTREME_LOW_WEIGHT": ("Child (0 < Age < 18) with Weight < 2 kg (critically low)", "Red", 95),
+    "R3.1_HEIGHT_EXTREME_LOW": ("Height < 50 cm (critically low)", "Red", 95),
+    "R3.2_HEIGHT_EXTREME_HIGH": ("Height > 220 cm (critically high)", "Red", 95),
+    "R4.1_BMI_VERY_LOW": ("BMI < 12 (critically low, using provided imcINdex)", "Red", 100),
+    "R4.2_BMI_VERY_HIGH": ("BMI > 60 (critically high, using provided imcINdex)", "Red", 100),
+    "R_MISSING_CRITICAL": ("Missing critical data (age_v, greutate, or inaltime)", "Orange", 60),
+    "R5.1_ELDERLY_OBESE": ("Suspicious Elderly Obesity: Age > 85 and IMC is 'Obese' or 'Extremly Obese'", "Orange", 50),
+    "R6.1_DUPLICATE": ("Potential duplicate (same age/weight/height within 1 hr)", "Orange", 30),
+    "R7.1_BMI_INCONSISTENT": ("Calculated BMI differs from provided imcINdex by > 1.0", "Orange", 40),
+    "R1.3_AGE_WARN_YOUNG": ("Age is for a child/minor (0 < Age < 18 years)", "Yellow", 10),
+    "R1.4_AGE_WARN_OLD": ("Age is high (100 < Age <= 120 years, not yet >120)", "Yellow", 10),
+    "R3.3_HEIGHT_WARN_LOW": ("Height is potentially low (50 <= Height < 150 cm)", "Yellow", 15),
+}
+
+# --- Anomaly Detection Rule Thresholds (using original column names) ---
+AGE_MAX_CORRUPT_THRESHOLD = 2000000000
+AGE_RED_OVER = 120
+AGE_RED_UNDER_OR_EQ = 0 # Replaces MIN_VALID_AGE
+AGE_WARN_YOUNG_UPPER_EXCLUSIVE = 18
+AGE_WARN_OLD_LOWER_EXCLUSIVE = 100
+
+WEIGHT_RED_LOW_THRESHOLD = 20
+WEIGHT_RED_HIGH_THRESHOLD = 300
+WEIGHT_CHILD_EXTREME_LOW_THRESHOLD = 2
+
+HEIGHT_RED_EXTREME_LOW_THRESHOLD = 50
+HEIGHT_RED_EXTREME_HIGH_THRESHOLD = 220
+HEIGHT_WARN_LOW_UPPER_EXCLUSIVE = 150
+
+BMI_RED_LOW_THRESHOLD = 12
+BMI_RED_HIGH_THRESHOLD = 60 # Replaces MAX_BMI_THRESHOLD
+
+ADULT_AGE_THRESHOLD_INTERNAL = 18
+ELDERLY_AGE_THRESHOLD_INTERNAL = 85
+SUSPICIOUS_OBESITY_CATEGORIES_INTERNAL = ['Obese', 'Extremly Obese']
+DUPLICATE_TIMEFRAME_HOURS_INTERNAL = 1
+BMI_CALCULATION_TOLERANCE_INTERNAL = 1.0
+
+def _add_anomaly_reason(df_row, reason_code):
+    if reason_code not in RULE_DEFINITIONS:
+        desc, severity_level_str, score_value = "Unknown rule violation", "Yellow", 5
+    else:
+        desc, severity_level_str, score_value = RULE_DEFINITIONS[reason_code]
+    full_reason_display = f"{reason_code}: {desc}"
+    if not isinstance(df_row['anomaly_reason'], list): df_row['anomaly_reason'] = []
+    if not isinstance(df_row['applied_rule_codes'], list): df_row['applied_rule_codes'] = []
+    if reason_code not in df_row['applied_rule_codes']:
+        df_row['anomaly_reason'].append(full_reason_display)
+        df_row['applied_rule_codes'].append(reason_code)
+        df_row['total_anomaly_score'] += score_value
+    current_max_severity_val = df_row.get('max_anomaly_severity_value', 0)
+    new_severity_val = SEVERITY_LEVEL_MAP.get(severity_level_str, 0)
+    if new_severity_val > current_max_severity_val:
+        df_row['max_anomaly_severity_value'] = new_severity_val
+    df_row['is_anomaly'] = True
+    return df_row
+
+def apply_data_integrity_rules(df):
+    critical_cols = ['age_v', 'greutate', 'inaltime']
+    for col in critical_cols:
+        if col in df.columns and df[col].isna().any():
+            condition = df[col].isna()
+            df.loc[condition] = df.loc[condition].apply(lambda row: _add_anomaly_reason(row, "R_MISSING_CRITICAL"), axis=1)
+    if 'age_v' in df.columns and df['age_v'].notna().any():
+        condition = (df['age_v'].notna()) & (df['age_v'] > AGE_MAX_CORRUPT_THRESHOLD)
+        df.loc[condition] = df.loc[condition].apply(lambda row: _add_anomaly_reason(row, "R_AGE_CORRUPT"), axis=1)
+    return df
+
+def apply_age_rules(df):
+    if 'age_v' in df.columns and df['age_v'].notna().any():
+        condition_over_120 = (df['age_v'] > AGE_RED_OVER) & (df['age_v'] <= AGE_MAX_CORRUPT_THRESHOLD)
+        df.loc[condition_over_120] = df.loc[condition_over_120].apply(lambda row: _add_anomaly_reason(row, "R1.1_AGE_OVER_120"), axis=1)
+        condition_invalid_low = df['age_v'] <= AGE_RED_UNDER_OR_EQ
+        df.loc[condition_invalid_low] = df.loc[condition_invalid_low].apply(lambda row: _add_anomaly_reason(row, "R1.2_AGE_INVALID_LOW"), axis=1)
+        condition_warn_young = (df['age_v'] > AGE_RED_UNDER_OR_EQ) & (df['age_v'] < AGE_WARN_YOUNG_UPPER_EXCLUSIVE)
+        df.loc[condition_warn_young] = df.loc[condition_warn_young].apply(lambda row: _add_anomaly_reason(row, "R1.3_AGE_WARN_YOUNG"), axis=1)
+        condition_warn_old = (df['age_v'] > AGE_WARN_OLD_LOWER_EXCLUSIVE) & (df['age_v'] <= AGE_RED_OVER)
+        df.loc[condition_warn_old] = df.loc[condition_warn_old].apply(lambda row: _add_anomaly_reason(row, "R1.4_AGE_WARN_OLD"), axis=1)
+    return df
+
+def apply_weight_rules(df):
+    if 'greutate' in df.columns and 'age_v' in df.columns and df['greutate'].notna().any():
+        condition_low = df['greutate'] < WEIGHT_RED_LOW_THRESHOLD
+        df.loc[condition_low] = df.loc[condition_low].apply(lambda row: _add_anomaly_reason(row, "R2.1_WEIGHT_LOW"), axis=1)
+        condition_high = df['greutate'] > WEIGHT_RED_HIGH_THRESHOLD
+        df.loc[condition_high] = df.loc[condition_high].apply(lambda row: _add_anomaly_reason(row, "R2.2_WEIGHT_HIGH"), axis=1)
+        condition_child_extreme_low = (df['age_v'].notna()) & (df['age_v'] > AGE_RED_UNDER_OR_EQ) & (df['age_v'] < ADULT_AGE_THRESHOLD_INTERNAL) & \
+                                      (df['greutate'] < WEIGHT_CHILD_EXTREME_LOW_THRESHOLD)
+        df.loc[condition_child_extreme_low] = df.loc[condition_child_extreme_low].apply(lambda row: _add_anomaly_reason(row, "R2.4_CHILD_EXTREME_LOW_WEIGHT"), axis=1)
+    return df
+
+def apply_height_rules(df):
+    if 'inaltime' in df.columns and df['inaltime'].notna().any():
+        condition_extreme_low = df['inaltime'] < HEIGHT_RED_EXTREME_LOW_THRESHOLD
+        df.loc[condition_extreme_low] = df.loc[condition_extreme_low].apply(lambda row: _add_anomaly_reason(row, "R3.1_HEIGHT_EXTREME_LOW"), axis=1)
+        condition_extreme_high = df['inaltime'] > HEIGHT_RED_EXTREME_HIGH_THRESHOLD
+        df.loc[condition_extreme_high] = df.loc[condition_extreme_high].apply(lambda row: _add_anomaly_reason(row, "R3.2_HEIGHT_EXTREME_HIGH"), axis=1)
+        condition_warn_low = (df['inaltime'] >= HEIGHT_RED_EXTREME_LOW_THRESHOLD) & (df['inaltime'] < HEIGHT_WARN_LOW_UPPER_EXCLUSIVE)
+        df.loc[condition_warn_low] = df.loc[condition_warn_low].apply(lambda row: _add_anomaly_reason(row, "R3.3_HEIGHT_WARN_LOW"), axis=1)
+    return df
+
+def apply_bmi_rules(df):
+    if 'imcINdex' in df.columns:
+        if 'rule_based_imcINdex_cleaned' not in df.columns:
+            df['rule_based_imcINdex_cleaned'] = pd.to_numeric(df['imcINdex'], errors='coerce').replace([np.inf, -np.inf], np.nan)
+        condition_low_bmi = (df['rule_based_imcINdex_cleaned'].notna()) & (df['rule_based_imcINdex_cleaned'] < BMI_RED_LOW_THRESHOLD)
+        df.loc[condition_low_bmi] = df.loc[condition_low_bmi].apply(lambda row: _add_anomaly_reason(row, "R4.1_BMI_VERY_LOW"), axis=1)
+        condition_high_bmi = (df['rule_based_imcINdex_cleaned'].notna()) & (df['rule_based_imcINdex_cleaned'] > BMI_RED_HIGH_THRESHOLD)
+        df.loc[condition_high_bmi] = df.loc[condition_high_bmi].apply(lambda row: _add_anomaly_reason(row, "R4.2_BMI_VERY_HIGH"), axis=1)
+    return df
+
+def apply_elderly_obesity_rule(df):
+    if 'age_v' in df.columns and 'IMC' in df.columns:
+        condition = (df['age_v'].notna()) & (df['age_v'] > ELDERLY_AGE_THRESHOLD_INTERNAL) & \
+                    (df['IMC'].notna() & df['IMC'].isin(SUSPICIOUS_OBESITY_CATEGORIES_INTERNAL))
+        df.loc[condition] = df.loc[condition].apply(lambda row: _add_anomaly_reason(row, "R5.1_ELDERLY_OBESE"), axis=1)
+    return df
+
+def apply_duplicate_case_rule(df):
+    if not all(col in df.columns for col in ['age_v', 'greutate', 'inaltime', 'data1']): return df
+    if df['data1'].isnull().all(): return df
+    df_sorted = df.sort_values(by=['age_v', 'greutate', 'inaltime', 'data1']).copy()
+    df_sorted['prev_data1'] = df_sorted.groupby(['age_v', 'greutate', 'inaltime'])['data1'].shift(1)
+    mask_not_nat = df_sorted['prev_data1'].notna() & df_sorted['data1'].notna()
+    df_sorted['time_diff_to_prev_hours'] = np.nan
+    if mask_not_nat.any():
+        df_sorted.loc[mask_not_nat, 'time_diff_to_prev_hours'] = \
+            (df_sorted.loc[mask_not_nat, 'data1'] - df_sorted.loc[mask_not_nat, 'prev_data1']).dt.total_seconds() / 3600
+    duplicate_indices = df_sorted[
+        (df_sorted['time_diff_to_prev_hours'].notna()) &
+        (df_sorted['time_diff_to_prev_hours'] >= 0) &
+        (df_sorted['time_diff_to_prev_hours'] < DUPLICATE_TIMEFRAME_HOURS_INTERNAL)
+    ].index
+    df.loc[df.index.isin(duplicate_indices)] = df.loc[df.index.isin(duplicate_indices)].apply(
+        lambda row: _add_anomaly_reason(row, "R6.1_DUPLICATE"), axis=1)
+    return df
+
+def apply_bmi_consistency_rule(df):
+    if not all(col in df.columns for col in ['inaltime', 'greutate', 'imcINdex']): return df
+    if 'rule_based_inaltime_m' not in df.columns:
+        df['rule_based_inaltime_m'] = pd.to_numeric(df['inaltime'], errors='coerce') / 100
+    if 'rule_based_calculated_bmi' not in df.columns:
+        df['rule_based_calculated_bmi'] = np.where(
+            (df['rule_based_inaltime_m'].notna()) & (df['rule_based_inaltime_m'] > 0) & (df['greutate'].notna()),
+            pd.to_numeric(df['greutate'], errors='coerce') / (df['rule_based_inaltime_m'] ** 2), np.nan)
+        df['rule_based_calculated_bmi'] = df['rule_based_calculated_bmi'].replace([np.inf, -np.inf], np.nan)
+    if 'rule_based_imcINdex_cleaned' not in df.columns:
+        if 'imcINdex' in df.columns:
+            df['rule_based_imcINdex_cleaned'] = pd.to_numeric(df['imcINdex'], errors='coerce').replace([np.inf, -np.inf], np.nan)
+        else: # Should not happen if imcINdex is present for other rules
+            df['rule_based_imcINdex_cleaned'] = np.nan
+
+    condition = (
+        df['rule_based_calculated_bmi'].notna() & df['rule_based_imcINdex_cleaned'].notna() &
+        (df['rule_based_imcINdex_cleaned'] <= BMI_RED_HIGH_THRESHOLD) & # Corrected Constant
+        (abs(df['rule_based_calculated_bmi'] - df['rule_based_imcINdex_cleaned']) > BMI_CALCULATION_TOLERANCE_INTERNAL))
+    df.loc[condition] = df.loc[condition].apply(lambda row: _add_anomaly_reason(row, "R7.1_BMI_INCONSISTENT"), axis=1)
+    return df
+
+def calculate_anomaly_score_percentage(row):
+    if not row.get('is_anomaly', False): return 0
+    max_severity_val = row.get('max_anomaly_severity_value', 0)
+    total_score = row.get('total_anomaly_score', 0)
+    percentage = 0
+    if max_severity_val == SEVERITY_LEVEL_MAP["Red"]:
+        percentage = 80 + min( (total_score / 100) * 20, 20) 
+    elif max_severity_val == SEVERITY_LEVEL_MAP["Orange"]:
+        percentage = 50 + min( (total_score / 60) * 29, 29) 
+    elif max_severity_val == SEVERITY_LEVEL_MAP["Yellow"]:
+        percentage = 20 + min( (total_score / 20) * 29, 29) 
+    return min(int(percentage), 100)
+
+def get_anomaly_detection_pipeline():
+    return [
+        ("Applying Data Integrity Checks", apply_data_integrity_rules),
+        ("Applying Age Rules", apply_age_rules),
+        ("Applying Weight Rules", apply_weight_rules),
+        ("Applying Height Rules", apply_height_rules),
+        ("Applying BMI Rules (from imcINdex)", apply_bmi_rules),
+        ("Applying Elderly Obesity Rule", apply_elderly_obesity_rule),
+        ("Applying Duplicate Case Rule", apply_duplicate_case_rule),
+        ("Applying BMI Consistency Rule", apply_bmi_consistency_rule)]
+
+def initialize_anomaly_columns(df):
+    df['is_anomaly'] = False
+    df['anomaly_reason'] = [[] for _ in range(len(df))]
+    df['applied_rule_codes'] = [[] for _ in range(len(df))]
+    df['total_anomaly_score'] = 0
+    df['max_anomaly_severity_value'] = 0
+    return df
+
+def finalize_anomaly_data(df):
+    if 'is_anomaly' in df.columns:
+        df['max_anomaly_severity_category'] = df['max_anomaly_severity_value'].map(REVERSE_SEVERITY_MAP).fillna("")
+        df['anomaly_score_percentage'] = df.apply(calculate_anomaly_score_percentage, axis=1)
+        cols_to_drop_internal = ['rule_based_imcINdex_cleaned', 'rule_based_inaltime_m', 'rule_based_calculated_bmi']
+        for col in cols_to_drop_internal:
+            if col in df.columns: df.drop(columns=[col], inplace=True, errors='ignore')
+    return df

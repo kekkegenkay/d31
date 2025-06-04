@@ -1,0 +1,261 @@
+id_case,age,sex,agreement,weight,height,bmi_category,timestamp,symptom_1,symptom_2,bmi,valid,suspect_elderly_obese,ai_anomaly
+7,90.0,male,Confirm & accepted,185.0,190.0,Extremly Obese,2024-10-11 08:32:23,0,0,51.2,True,True,True
+8,90.0,female,Confirm & accepted,90.0,134.0,Extremly Obese,2024-10-11 08:33:33,1,0,50.1,True,True,True
+9,56.0,male,Confirm & accepted,45.0,190.0,Underweight,2024-10-11 08:35:11,1,0,12.5,True,False,True
+10,99.0,female,Confirm & accepted,90.0,196.0,Normal weight,2024-10-11 08:43:25,1,0,23.4,True,False,True
+15,90.0,female,Confirm & accepted,186.0,190.0,Extremly Obese,2024-10-11 09:43:59,1,0,51.5,True,True,True
+38,50.0,female,Confirm & accepted,140.0,165.0,Extremly Obese,2024-10-12 14:01:33,1,0,51.4,True,False,True
+40,80.0,female,Confirm & accepted,65.0,190.0,Underweight,2024-10-12 14:06:46,1,0,18.0,True,False,True
+45,38.0,male,Confirm & accepted,102.0,180.0,Extremly Obese,2024-10-12 14:23:05,1,0,55.6,True,False,True
+49,45.0,female,Confirm & accepted,150.0,170.0,Extremly Obese,2024-10-12 22:40:03,1,0,51.9,True,False,True
+89,99.0,female,Confirm & accepted,99.0,195.0,Overweight,2024-10-17 23:27:29,0,0,26.0,True,False,True
+98,90.0,female,Confirm & accepted,185.0,185.0,Extremly Obese,2024-10-18 01:31:39,0,0,54.1,True,True,True
+158,89.0,male,Confirm & accepted,180.0,185.0,Extremly Obese,2024-10-19 05:41:19,1,0,52.6,True,True,True
+166,23.0,female,Confirm & accepted,185.0,195.0,Extremly Obese,2024-10-19 14:00:33,0,0,48.7,True,False,True
+246,99.0,female,Confirm & accepted,178.0,185.0,Extremly Obese,2024-10-22 00:06:50,0,0,52.0,True,True,True
+366,45.0,male,Confirm & accepted,185.0,189.0,Extremly Obese,2024-10-24 11:27:03,1,0,51.8,True,False,True
+392,48.0,female,Confirm & accepted,185.0,190.0,Extremly Obese,2024-10-28 04:56:40,0,0,51.2,True,False,True
+481,67.0,female,Confirm & accepted,120.0,220.0,Normal weight,2024-11-02 13:58:37,0,0,24.8,True,False,True
+503,28.0,female,Confirm & accepted,172.0,168.0,Extremly Obese,2024-11-06 19:27:24,1,0,59.5,True,False,True
+519,90.0,female,Confirm & accepted,189.0,190.0,Extremly Obese,2024-11-12 07:47:28,1,0,52.4,True,True,True
+538,24.0,male,Confirm & accepted,91.0,168.0,Extremly Obese,2024-11-15 20:17:34,1,0,59.5,True,False,True
+544,31.0,male,Confirm & accepted,114.0,168.0,Extremly Obese,2024-11-16 14:50:05,1,0,59.5,True,False,True
+565,98.0,male,Confirm & accepted,99.0,190.0,Overweight,2024-11-18 08:57:27,0,0,27.4,True,False,True
+573,39.0,male,Confirm & accepted,79.0,173.0,Extremly Obese,2024-11-19 16:46:44,0,0,57.8,True,False,True
+579,25.0,female,Confirm & accepted,53.0,173.0,Extremly Obese,2024-11-21 12:00:02,0,0,57.8,True,False,True
+580,26.0,male,Confirm & accepted,111.0,188.0,Extremly Obese,2024-11-21 16:59:36,1,0,53.2,True,False,True
+581,25.0,female,Confirm & accepted,53.0,173.0,Extremly Obese,2024-11-21 19:25:07,1,0,57.8,True,False,True
+582,25.0,female,Confirm & accepted,53.0,173.0,Extremly Obese,2024-11-21 19:25:52,0,0,57.8,True,False,True
+599,36.0,female,Confirm & accepted,103.0,168.0,Extremly Obese,2024-11-23 12:03:56,0,0,59.5,True,False,True
+600,89.0,female,Confirm & accepted,178.0,190.0,Extremly Obese,2024-11-23 14:49:02,1,0,49.3,True,True,True
+604,99.0,female,Confirm & accepted,99.0,190.0,Overweight,2024-11-25 00:29:29,1,0,27.4,True,False,True
+613,36.0,female,Confirm & accepted,101.0,168.0,Extremly Obese,2024-11-25 21:55:43,0,0,59.5,True,False,True
+620,54.0,female,Confirm & accepted,70.0,168.0,Extremly Obese,2024-11-27 19:31:06,1,0,59.5,True,False,True
+621,90.0,male,Confirm & accepted,195.0,210.0,Extremly Obese,2024-11-28 01:03:03,0,0,44.2,True,True,True
+623,89.0,male,Confirm & accepted,189.0,189.0,Extremly Obese,2024-11-28 04:08:28,1,0,52.9,True,True,True
+625,62.0,female,Confirm & accepted,86.0,120.0,Extremly Obese,2024-11-29 06:04:26,0,0,59.7,True,False,True
+630,20.0,female,Confirm & accepted,186.0,190.0,Extremly Obese,2024-11-30 03:13:42,1,0,51.5,True,False,True
+642,53.0,male,Confirm & accepted,100.0,188.0,Extremly Obese,2024-11-30 06:29:51,0,0,53.2,True,False,True
+643,53.0,male,Confirm & accepted,100.0,188.0,Extremly Obese,2024-11-30 06:32:15,0,0,53.2,True,False,True
+672,98.0,female,Confirm & accepted,190.0,189.0,Extremly Obese,2024-12-04 08:58:06,1,0,53.2,True,True,True
+683,66.0,male,Confirm & accepted,85.0,168.0,Extremly Obese,2024-12-07 04:12:43,0,0,59.5,True,False,True
+684,66.0,male,Confirm & accepted,84.0,168.0,Extremly Obese,2024-12-07 04:18:46,1,0,59.5,True,False,True
+685,66.0,male,Confirm & accepted,84.0,168.0,Extremly Obese,2024-12-07 07:24:12,1,0,59.5,True,False,True
+724,41.0,female,Confirm & accepted,130.0,150.0,Extremly Obese,2024-12-11 12:36:15,1,0,57.8,True,False,True
+743,48.0,male,Confirm & accepted,64.0,175.0,Extremly Obese,2024-12-18 00:41:19,0,0,57.1,True,False,True
+764,49.0,female,Confirm & accepted,61.0,173.0,Extremly Obese,2024-12-21 20:38:48,0,0,57.8,True,False,True
+765,49.0,female,Confirm & accepted,61.0,173.0,Extremly Obese,2024-12-21 20:48:51,1,0,57.8,True,False,True
+766,49.0,female,Confirm & accepted,61.0,173.0,Extremly Obese,2024-12-21 20:58:50,1,0,57.8,True,False,True
+811,18.0,female,Confirm & accepted,33.0,136.0,Underweight,2024-12-26 06:35:49,1,0,17.8,True,False,True
+812,18.0,female,Confirm & accepted,33.0,130.0,Normal weight,2024-12-26 06:37:34,0,0,19.5,True,False,True
+813,9.0,female,Confirm & accepted,33.0,130.0,Normal weight,2024-12-26 06:44:59,1,0,19.5,True,False,True
+814,9.0,female,Confirm & accepted,33.0,136.0,Underweight,2024-12-26 06:49:54,1,0,17.8,True,False,True
+820,46.0,male,Confirm & accepted,154.0,168.0,Extremly Obese,2024-12-27 16:46:12,0,0,54.6,True,False,True
+829,44.0,male,Confirm & accepted,82.0,170.0,Extremly Obese,2024-12-29 13:51:13,1,0,58.8,True,False,True
+831,50.0,female,Confirm & accepted,140.0,170.0,Extremly Obese,2024-12-30 09:19:43,1,0,48.4,True,False,True
+835,34.0,male,Confirm & accepted,136.0,183.0,Extremly Obese,2024-12-31 08:30:54,1,0,54.6,True,False,True
+842,52.0,female,Confirm & accepted,154.0,170.0,Extremly Obese,2025-01-01 22:45:37,0,0,58.8,True,False,True
+863,54.0,male,Confirm & accepted,122.0,170.0,Extremly Obese,2025-01-03 01:16:23,0,0,58.8,True,False,True
+864,54.0,male,Confirm & accepted,125.0,170.0,Extremly Obese,2025-01-03 01:20:25,0,0,58.8,True,False,True
+912,90.0,female,Confirm & accepted,56.0,187.0,Underweight,2025-01-13 06:47:47,0,0,16.0,True,False,True
+932,39.0,female,Confirm & accepted,118.0,170.0,Extremly Obese,2025-01-15 23:10:13,0,0,58.8,True,False,True
+933,39.0,female,Confirm & accepted,118.0,170.0,Extremly Obese,2025-01-15 23:12:37,0,0,58.8,True,False,True
+942,90.0,female,Confirm & accepted,178.0,189.0,Extremly Obese,2025-01-17 03:53:36,1,0,49.8,True,True,True
+987,17.0,female,Confirm & accepted,65.0,170.0,Extremly Obese,2025-01-19 12:17:36,1,0,58.8,True,False,True
+1010,78.0,female,Confirm & accepted,140.0,185.0,Extremly Obese,2025-01-21 05:25:48,1,0,40.9,True,False,True
+1030,53.0,male,Confirm & accepted,105.0,188.0,Extremly Obese,2025-01-22 06:22:23,0,0,53.2,True,False,True
+1031,53.0,male,Confirm & accepted,104.0,188.0,Extremly Obese,2025-01-22 06:24:26,0,0,53.2,True,False,True
+1051,39.0,female,Confirm & accepted,118.0,170.0,Extremly Obese,2025-01-24 03:15:12,0,0,58.8,True,False,True
+1052,39.0,female,Confirm & accepted,118.0,170.0,Extremly Obese,2025-01-24 03:22:06,1,0,58.8,True,False,True
+1055,37.0,female,Confirm & accepted,85.0,168.0,Extremly Obese,2025-01-24 13:18:01,1,0,59.5,True,False,True
+1058,63.0,male,Confirm & accepted,70.0,170.0,Extremly Obese,2025-01-25 15:37:55,0,0,58.8,True,False,True
+1059,63.0,male,Confirm & accepted,70.0,168.0,Extremly Obese,2025-01-25 15:44:31,0,0,59.5,True,False,True
+1101,37.0,female,Confirm & accepted,100.0,168.0,Extremly Obese,2025-01-27 10:42:39,1,0,59.5,True,False,True
+1124,8.0,male,Confirm & accepted,45.0,145.0,Normal weight,2025-01-28 06:09:27,0,0,21.4,True,False,True
+1129,6.0,male,Confirm & accepted,39.0,132.0,Normal weight,2025-01-28 08:21:14,0,0,22.4,True,False,True
+1177,35.0,female,Confirm & accepted,61.0,173.0,Extremly Obese,2025-01-29 22:59:57,0,0,57.8,True,False,True
+1178,35.0,female,Confirm & accepted,61.0,173.0,Extremly Obese,2025-01-29 23:08:09,0,0,57.8,True,False,True
+1179,35.0,female,Confirm & accepted,61.0,173.0,Extremly Obese,2025-01-29 23:18:13,1,0,57.8,True,False,True
+1203,92.0,male,Confirm & accepted,82.0,175.0,Extremly Obese,2025-02-01 11:16:16,0,0,57.1,True,True,True
+1207,60.0,male,Confirm & accepted,88.0,168.0,Extremly Obese,2025-02-02 17:21:30,0,0,59.5,True,False,True
+1219,63.0,male,Confirm & accepted,119.0,183.0,Extremly Obese,2025-02-04 11:18:25,1,0,54.6,True,False,True
+1237,9.0,female,Confirm & accepted,34.0,137.0,Underweight,2025-02-06 06:12:51,0,0,18.1,True,False,True
+1238,83.0,female,Confirm & accepted,50.0,155.0,Normal weight,2025-02-06 08:28:12,0,0,20.8,True,False,True
+1239,48.0,female,Confirm & accepted,32.0,150.0,Underweight,2025-02-06 11:11:38,0,0,14.2,True,False,True
+1240,48.0,female,Confirm & accepted,31.0,150.0,Underweight,2025-02-06 11:15:25,1,0,13.8,True,False,True
+1267,59.0,male,Confirm & accepted,135.0,184.0,Extremly Obese,2025-02-11 23:14:24,1,0,54.3,True,False,True
+1274,78.0,female,Confirm & accepted,189.0,198.0,Extremly Obese,2025-02-12 09:26:47,1,0,48.2,True,False,True
+1282,67.0,male,Confirm & accepted,185.0,187.0,Extremly Obese,2025-02-12 16:16:12,1,0,52.9,True,False,True
+1299,78.0,female,Confirm & accepted,185.0,185.0,Extremly Obese,2025-02-14 01:28:02,1,0,54.1,True,False,True
+1338,63.0,male,Confirm & accepted,117.0,183.0,Extremly Obese,2025-02-16 16:34:51,0,0,54.6,True,False,True
+1339,63.0,male,Confirm & accepted,113.0,183.0,Extremly Obese,2025-02-16 16:44:10,1,0,54.6,True,False,True
+1350,65.0,female,Confirm & accepted,113.0,175.0,Extremly Obese,2025-02-17 19:15:23,1,0,57.1,True,False,True
+1361,24.0,female,Confirm & accepted,59.0,214.0,Extremly Obese,2025-02-19 19:26:32,0,0,46.7,True,False,True
+1362,24.0,female,Confirm & accepted,59.0,214.0,Extremly Obese,2025-02-19 21:35:16,0,0,46.7,True,False,True
+1363,40.0,male,Confirm & accepted,167.0,180.0,Extremly Obese,2025-02-19 23:06:51,0,0,51.5,True,False,True
+1387,29.0,female,Confirm & accepted,159.0,168.0,Extremly Obese,2025-02-20 01:18:20,0,0,59.5,True,False,True
+1390,29.0,female,Confirm & accepted,159.0,168.0,Extremly Obese,2025-02-20 01:23:30,0,0,59.5,True,False,True
+1410,55.0,female,Confirm & accepted,82.0,170.0,Extremly Obese,2025-02-20 16:39:38,1,0,58.8,True,False,True
+1422,2.0,female,Confirm & accepted,78.0,128.0,Extremly Obese,2025-02-21 03:51:51,1,0,47.6,True,False,True
+1461,90.0,male,Confirm & accepted,87.0,200.0,Normal weight,2025-02-22 05:23:28,1,0,21.8,True,False,True
+1483,41.0,male,Confirm & accepted,68.0,120.0,Extremly Obese,2025-02-22 12:55:07,1,0,47.2,True,False,True
+1498,67.0,male,Confirm & accepted,178.0,178.0,Extremly Obese,2025-02-24 00:32:16,1,0,56.2,True,False,True
+1540,23.0,male,Confirm & accepted,77.0,170.0,Extremly Obese,2025-02-26 04:46:35,0,0,58.8,True,False,True
+1541,54.0,male,Confirm & accepted,150.0,187.0,Extremly Obese,2025-02-26 08:31:46,1,0,42.9,True,False,True
+1542,54.0,male,Confirm & accepted,150.0,187.0,Extremly Obese,2025-02-26 08:36:53,1,0,42.9,True,False,True
+1615,76.0,male,Confirm & accepted,85.0,173.0,Extremly Obese,2025-03-01 21:59:21,0,0,57.8,True,False,True
+1618,56.0,female,Confirm & accepted,145.0,189.0,Extremly Obese,2025-03-02 04:21:30,1,0,40.6,True,False,True
+1624,68.0,male,Confirm & accepted,77.0,170.0,Extremly Obese,2025-03-03 09:57:29,1,0,58.8,True,False,True
+1626,26.0,male,Confirm & accepted,69.0,129.0,Extremly Obese,2025-03-03 13:20:08,1,0,41.5,True,False,True
+1663,22.0,male,Confirm & accepted,59.0,183.0,Extremly Obese,2025-03-07 03:58:57,0,0,54.6,True,False,True
+1669,50.0,female,Confirm & accepted,140.0,165.0,Extremly Obese,2025-03-07 11:16:33,1,0,51.4,True,False,True
+1677,35.0,female,Confirm & accepted,65.0,168.0,Extremly Obese,2025-03-08 08:05:51,1,0,59.5,True,False,True
+1682,64.0,male,Confirm & accepted,116.0,168.0,Extremly Obese,2025-03-08 22:15:33,1,0,59.5,True,False,True
+1722,42.0,female,Confirm & accepted,140.0,165.0,Extremly Obese,2025-03-12 01:44:07,0,0,51.4,True,False,True
+1723,22.0,female,Confirm & accepted,30.0,145.0,Underweight,2025-03-12 02:06:41,1,0,14.3,True,False,True
+1758,40.0,male,Confirm & accepted,185.0,185.0,Extremly Obese,2025-03-14 05:37:07,0,0,54.1,True,False,True
+1793,45.0,female,Confirm & accepted,74.0,173.0,Extremly Obese,2025-03-17 13:39:29,1,0,57.8,True,False,True
+1801,37.0,female,Confirm & accepted,87.0,140.0,Extremly Obese,2025-03-18 06:46:29,0,0,44.4,True,False,True
+1806,44.0,female,Confirm & accepted,79.0,173.0,Extremly Obese,2025-03-18 11:18:11,0,0,57.8,True,False,True
+1812,44.0,female,Confirm & accepted,79.0,173.0,Extremly Obese,2025-03-18 20:36:44,1,0,57.8,True,False,True
+1832,61.0,male,Confirm & accepted,106.0,173.0,Extremly Obese,2025-03-20 22:33:33,1,0,57.8,True,False,True
+1834,61.0,male,Confirm & accepted,102.0,170.0,Extremly Obese,2025-03-20 23:31:04,1,0,58.8,True,False,True
+1864,36.0,female,Confirm & accepted,61.0,173.0,Extremly Obese,2025-03-22 00:06:41,0,0,57.8,True,False,True
+1865,36.0,female,Confirm & accepted,62.0,173.0,Extremly Obese,2025-03-22 00:13:58,1,0,57.8,True,False,True
+1883,27.0,female,Confirm & accepted,56.0,123.0,Extremly Obese,2025-03-24 14:46:54,1,0,37.0,True,False,True
+1884,27.0,female,Confirm & accepted,56.0,122.0,Extremly Obese,2025-03-24 14:57:39,1,0,37.6,True,False,True
+1890,36.0,male,Confirm & accepted,113.0,185.0,Extremly Obese,2025-03-25 09:49:29,0,0,54.1,True,False,True
+1963,56.0,male,Confirm & accepted,126.0,193.0,Extremly Obese,2025-03-30 16:08:13,0,0,51.8,True,False,True
+2019,44.0,female,Confirm & accepted,100.0,130.0,Extremly Obese,2025-04-01 17:05:00,1,0,59.2,True,False,True
+2115,25.0,male,Confirm & accepted,180.0,180.0,Extremly Obese,2025-04-05 05:59:58,0,0,55.6,True,False,True
+2134,11.0,female,Confirm & accepted,30.0,147.0,Underweight,2025-04-06 08:06:27,0,0,13.9,True,False,True
+2174,34.0,male,Confirm & accepted,87.0,188.0,Extremly Obese,2025-04-07 22:41:51,0,0,53.2,True,False,True
+2175,34.0,male,Confirm & accepted,87.0,188.0,Extremly Obese,2025-04-07 22:49:09,0,0,53.2,True,False,True
+2201,62.0,male,Confirm & accepted,114.0,185.0,Extremly Obese,2025-04-08 17:08:59,0,0,54.1,True,False,True
+2432,43.0,female,Confirm & accepted,113.0,150.0,Extremly Obese,2025-04-09 11:35:11,0,0,50.2,True,False,True
+2509,58.0,male,Confirm & accepted,165.0,178.0,Extremly Obese,2025-04-09 12:54:18,0,0,52.1,True,False,True
+2621,55.0,male,Confirm & accepted,185.0,180.0,Extremly Obese,2025-04-09 21:52:47,1,0,57.1,True,False,True
+2623,55.0,male,Confirm & accepted,185.0,180.0,Extremly Obese,2025-04-09 21:56:14,1,0,57.1,True,False,True
+2624,55.0,male,Confirm & accepted,185.0,180.0,Extremly Obese,2025-04-09 21:57:12,0,0,57.1,True,False,True
+2662,58.0,male,Confirm & accepted,144.0,188.0,Extremly Obese,2025-04-10 00:48:32,1,0,40.7,True,False,True
+2679,55.0,male,Confirm & accepted,140.0,197.0,Extremly Obese,2025-04-10 01:33:44,1,0,36.1,True,False,True
+2681,55.0,male,Confirm & accepted,140.0,197.0,Extremly Obese,2025-04-10 01:36:22,0,0,36.1,True,False,True
+2701,12.0,male,Confirm & accepted,56.0,141.0,Overweight,2025-04-10 02:58:11,0,0,28.2,True,False,True
+2702,67.0,male,Confirm & accepted,130.0,150.0,Extremly Obese,2025-04-10 02:59:37,0,0,57.8,True,False,True
+2779,37.0,male,Confirm & accepted,35.0,149.0,Underweight,2025-04-10 13:39:19,0,0,15.8,True,False,True
+2806,55.0,male,Confirm & accepted,93.0,168.0,Extremly Obese,2025-04-10 23:54:27,0,0,59.5,True,False,True
+2808,55.0,male,Confirm & accepted,93.0,168.0,Extremly Obese,2025-04-10 23:59:44,0,0,59.5,True,False,True
+2814,80.0,male,Confirm & accepted,180.0,180.0,Extremly Obese,2025-04-11 00:51:09,1,0,55.6,True,False,True
+2881,18.0,female,Confirm & accepted,34.0,150.0,Underweight,2025-04-11 11:23:50,0,0,15.1,True,False,True
+2883,18.0,female,Confirm & accepted,34.0,150.0,Underweight,2025-04-11 11:30:04,0,0,15.1,True,False,True
+2892,76.0,male,Confirm & accepted,130.0,174.0,Extremly Obese,2025-04-11 12:12:45,0,0,42.9,True,False,True
+2902,63.0,male,Confirm & accepted,135.0,170.0,Extremly Obese,2025-04-11 14:05:18,1,0,46.7,True,False,True
+2957,47.0,male,Confirm & accepted,165.0,183.0,Extremly Obese,2025-04-12 12:58:34,1,0,49.3,True,False,True
+2987,49.0,male,Confirm & accepted,175.0,172.0,Extremly Obese,2025-04-13 07:28:18,1,0,59.2,True,False,True
+3042,35.0,male,Confirm & accepted,151.0,181.0,Extremly Obese,2025-04-14 08:13:04,1,0,46.1,True,False,True
+3060,12.0,male,Confirm & accepted,34.0,150.0,Underweight,2025-04-14 08:16:13,1,0,15.1,True,False,True
+3065,35.0,male,Confirm & accepted,151.0,181.0,Extremly Obese,2025-04-14 08:19:42,1,0,46.1,True,False,True
+3167,12.0,male,Confirm & accepted,30.0,145.0,Underweight,2025-04-14 08:53:04,1,0,14.3,True,False,True
+3197,13.0,male,Confirm & accepted,57.0,141.0,Overweight,2025-04-14 09:07:08,0,0,28.7,True,False,True
+3198,13.0,male,Confirm & accepted,57.0,141.0,Overweight,2025-04-14 09:08:28,0,0,28.7,True,False,True
+3204,14.0,male,Confirm & accepted,40.0,171.0,Underweight,2025-04-14 09:16:08,1,0,13.7,True,False,True
+3216,60.0,female,Confirm & accepted,118.0,150.0,Extremly Obese,2025-04-14 09:22:05,1,0,52.4,True,False,True
+3247,10.0,female,Confirm & accepted,32.0,140.0,Underweight,2025-04-14 09:36:31,1,0,16.3,True,False,True
+3371,12.0,male,Confirm & accepted,41.0,142.0,Normal weight,2025-04-14 10:36:02,0,0,20.3,True,False,True
+3409,10.0,male,Confirm & accepted,35.0,148.0,Underweight,2025-04-14 10:56:12,0,0,16.0,True,False,True
+3420,10.0,male,Confirm & accepted,31.0,144.0,Underweight,2025-04-14 10:58:31,0,0,14.9,True,False,True
+3421,43.0,female,Confirm & accepted,155.0,175.0,Extremly Obese,2025-04-14 10:58:36,0,0,50.6,True,False,True
+3501,84.0,male,Confirm & accepted,91.0,170.0,Extremly Obese,2025-04-14 11:40:56,0,0,58.8,True,False,True
+3505,20.0,male,Confirm & accepted,30.0,130.0,Underweight,2025-04-14 11:42:06,0,0,17.8,True,False,True
+3509,84.0,male,Confirm & accepted,91.0,170.0,Extremly Obese,2025-04-14 11:56:05,1,0,58.8,True,False,True
+3606,21.0,female,Confirm & accepted,131.0,160.0,Extremly Obese,2025-04-14 12:24:44,1,0,51.2,True,False,True
+3659,22.0,male,Confirm & accepted,115.0,160.0,Extremly Obese,2025-04-14 12:35:43,0,0,44.9,True,False,True
+3700,12.0,female,Confirm & accepted,35.0,150.0,Underweight,2025-04-14 12:49:57,1,0,15.6,True,False,True
+3726,9.0,female,Confirm & accepted,33.0,140.0,Underweight,2025-04-14 13:03:05,1,0,16.8,True,False,True
+3748,11.0,male,Confirm & accepted,41.0,145.0,Normal weight,2025-04-14 13:10:16,1,0,19.5,True,False,True
+3838,31.0,male,Confirm & accepted,145.0,184.0,Extremly Obese,2025-04-14 13:56:26,1,0,42.8,True,False,True
+3841,12.0,female,Confirm & accepted,35.0,155.0,Underweight,2025-04-14 13:47:16,1,0,14.6,True,False,True
+3881,20.0,female,Confirm & accepted,153.0,165.0,Extremly Obese,2025-04-14 14:01:45,0,0,56.2,True,False,True
+3884,20.0,female,Confirm & accepted,153.0,165.0,Extremly Obese,2025-04-14 14:02:26,0,0,56.2,True,False,True
+3951,8.0,male,Confirm & accepted,40.0,146.0,Normal weight,2025-04-14 14:38:50,0,0,18.8,True,False,True
+4040,8.0,female,Confirm & accepted,32.0,134.0,Underweight,2025-04-14 15:28:26,0,0,17.8,True,False,True
+4118,13.0,male,Confirm & accepted,52.0,170.0,Extremly Obese,2025-04-14 16:33:57,0,0,58.8,True,False,True
+4121,13.0,male,Confirm & accepted,52.0,170.0,Extremly Obese,2025-04-14 16:37:27,1,0,58.8,True,False,True
+4124,13.0,male,Confirm & accepted,52.0,170.0,Extremly Obese,2025-04-14 16:39:05,0,0,58.8,True,False,True
+4214,49.0,male,Confirm & accepted,160.0,180.0,Extremly Obese,2025-04-14 20:25:49,1,0,49.4,True,False,True
+4233,74.0,male,Confirm & accepted,135.0,180.0,Extremly Obese,2025-04-14 20:59:22,1,0,41.7,True,False,True
+4320,55.0,male,Confirm & accepted,160.0,182.0,Extremly Obese,2025-04-14 22:21:19,0,0,48.3,True,False,True
+4358,11.0,male,Confirm & accepted,30.0,152.0,Underweight,2025-04-14 23:10:28,0,0,13.0,True,False,True
+4359,11.0,male,Confirm & accepted,30.0,152.0,Underweight,2025-04-14 23:13:17,1,0,13.0,True,False,True
+4579,11.0,female,Confirm & accepted,31.0,145.0,Underweight,2025-04-15 02:59:31,1,0,14.7,True,False,True
+4640,19.0,female,Confirm & accepted,37.0,130.0,Normal weight,2025-04-15 04:22:25,1,0,21.9,True,False,True
+4650,9.0,female,Confirm & accepted,37.0,130.0,Normal weight,2025-04-15 04:29:41,0,0,21.9,True,False,True
+4665,10.0,female,Confirm & accepted,31.0,145.0,Underweight,2025-04-15 04:50:56,1,0,14.7,True,False,True
+4703,57.0,male,Confirm & accepted,43.0,195.0,Extremly Obese,2025-04-15 05:18:45,0,0,51.3,True,False,True
+4719,11.0,male,Confirm & accepted,34.0,160.0,Underweight,2025-04-15 05:31:23,0,0,13.3,True,False,True
+4721,12.0,female,Confirm & accepted,35.0,145.0,Underweight,2025-04-15 05:34:34,0,0,16.6,True,False,True
+4727,54.0,male,Confirm & accepted,155.0,187.0,Extremly Obese,2025-04-15 05:51:57,1,0,44.3,True,False,True
+4749,12.0,female,Confirm & accepted,35.0,142.0,Underweight,2025-04-15 06:16:16,0,0,17.4,True,False,True
+4826,49.0,female,Confirm & accepted,35.0,187.0,Extremly Obese,2025-04-15 08:04:18,1,0,53.5,True,False,True
+4831,9.0,male,Confirm & accepted,30.0,142.0,Underweight,2025-04-15 08:03:31,0,0,14.9,True,False,True
+4834,9.0,male,Confirm & accepted,30.0,142.0,Underweight,2025-04-15 08:04:45,0,0,14.9,True,False,True
+4900,9.0,female,Confirm & accepted,36.0,130.0,Normal weight,2025-04-15 09:21:15,1,0,21.3,True,False,True
+4908,50.0,male,Confirm & accepted,130.0,150.0,Extremly Obese,2025-04-15 09:24:06,0,0,57.8,True,False,True
+5221,58.0,female,Confirm & accepted,115.0,158.0,Extremly Obese,2025-04-15 19:27:35,1,0,46.1,True,False,True
+5251,12.0,female,Confirm & accepted,34.0,145.0,Underweight,2025-04-15 20:39:19,0,0,16.2,True,False,True
+5295,43.0,female,Confirm & accepted,54.0,178.0,Extremly Obese,2025-04-15 22:18:44,1,0,56.2,True,False,True
+5394,11.0,male,Confirm & accepted,32.0,145.0,Underweight,2025-04-16 02:34:01,1,0,15.2,True,False,True
+5430,67.0,female,Confirm & accepted,145.0,158.0,Extremly Obese,2025-04-16 04:20:17,1,0,58.1,True,False,True
+5437,67.0,female,Confirm & accepted,145.0,158.0,Extremly Obese,2025-04-16 04:27:28,1,0,58.1,True,False,True
+5482,21.0,female,Confirm & accepted,40.0,120.0,Overweight,2025-04-16 06:10:27,1,0,27.8,True,False,True
+5540,11.0,male,Confirm & accepted,36.0,145.0,Underweight,2025-04-16 10:01:39,1,0,17.1,True,False,True
+5577,10.0,female,Confirm & accepted,37.0,146.0,Underweight,2025-04-16 11:42:36,0,0,17.4,True,False,True
+5579,12.0,female,Confirm & accepted,35.0,145.0,Underweight,2025-04-16 11:49:06,0,0,16.6,True,False,True
+5630,17.0,male,Confirm & accepted,91.0,185.0,Extremly Obese,2025-04-16 16:59:55,0,0,54.1,True,False,True
+5631,17.0,male,Confirm & accepted,91.0,185.0,Extremly Obese,2025-04-16 17:01:41,0,0,54.1,True,False,True
+5632,17.0,male,Confirm & accepted,91.0,183.0,Extremly Obese,2025-04-16 17:07:17,1,0,54.6,True,False,True
+5642,50.0,male,Confirm & accepted,40.0,195.0,Extremly Obese,2025-04-16 21:17:06,1,0,51.3,True,False,True
+5649,12.0,female,Confirm & accepted,35.0,150.0,Underweight,2025-04-16 21:44:00,1,0,15.6,True,False,True
+5709,12.0,male,Confirm & accepted,30.0,150.0,Underweight,2025-04-17 01:51:18,0,0,13.3,True,False,True
+5710,10.0,male,Confirm & accepted,30.0,150.0,Underweight,2025-04-17 01:52:49,0,0,13.3,True,False,True
+5768,56.0,male,Confirm & accepted,137.0,167.0,Extremly Obese,2025-04-17 09:12:02,0,0,49.1,True,False,True
+5789,79.0,female,Confirm & accepted,55.0,149.0,Normal weight,2025-04-17 10:55:24,0,0,24.8,True,False,True
+5790,79.0,female,Confirm & accepted,55.0,149.0,Normal weight,2025-04-17 11:00:04,1,0,24.8,True,False,True
+5896,35.0,male,Confirm & accepted,200.0,192.0,Extremly Obese,2025-04-17 23:58:56,0,0,54.3,True,False,True
+5923,13.0,male,Confirm & accepted,36.0,140.0,Underweight,2025-04-18 02:05:34,1,0,18.4,True,False,True
+5972,16.0,male,Confirm & accepted,45.0,140.0,Normal weight,2025-04-18 07:31:39,1,0,23.0,True,False,True
+5976,20.0,female,Confirm & accepted,154.0,168.0,Extremly Obese,2025-04-18 07:48:41,1,0,59.5,True,False,True
+6008,62.0,male,Confirm & accepted,155.0,183.0,Extremly Obese,2025-04-18 10:29:28,1,0,46.3,True,False,True
+6026,12.0,female,Confirm & accepted,38.0,141.0,Normal weight,2025-04-18 11:09:10,0,0,19.1,True,False,True
+6049,14.0,female,Confirm & accepted,42.0,185.0,Underweight,2025-04-18 12:37:53,0,0,12.3,True,False,True
+6130,94.0,female,Confirm & accepted,50.0,160.0,Normal weight,2025-04-19 02:15:13,0,0,19.5,True,False,True
+6146,37.0,male,Confirm & accepted,132.0,169.0,Extremly Obese,2025-04-19 05:16:51,1,0,46.2,True,False,True
+6225,10.0,male,Confirm & accepted,32.0,145.0,Underweight,2025-04-19 12:03:05,0,0,15.2,True,False,True
+6229,10.0,male,Confirm & accepted,32.0,145.0,Underweight,2025-04-19 12:05:45,0,0,15.2,True,False,True
+6310,40.0,female,Confirm & accepted,125.0,156.0,Extremly Obese,2025-04-19 22:20:08,0,0,51.4,True,False,True
+6312,40.0,female,Confirm & accepted,125.0,156.0,Extremly Obese,2025-04-19 22:26:50,1,0,51.4,True,False,True
+6430,65.0,female,Confirm & accepted,120.0,156.0,Extremly Obese,2025-04-20 03:05:45,1,0,49.3,True,False,True
+6461,12.0,female,Confirm & accepted,35.0,147.0,Underweight,2025-04-20 04:55:12,1,0,16.2,True,False,True
+6464,12.0,female,Confirm & accepted,35.0,147.0,Underweight,2025-04-20 04:59:56,1,0,16.2,True,False,True
+6499,63.0,female,Confirm & accepted,128.0,167.0,Extremly Obese,2025-04-20 06:24:40,1,0,45.9,True,False,True
+6589,18.0,male,Confirm & accepted,91.0,185.0,Extremly Obese,2025-04-20 11:25:09,1,0,54.1,True,False,True
+6651,85.0,female,Confirm & accepted,145.0,168.0,Extremly Obese,2025-04-20 20:55:41,1,0,51.4,True,False,True
+6678,21.0,female,Confirm & accepted,34.0,140.0,Underweight,2025-04-20 23:10:44,0,0,17.3,True,False,True
+6679,10.0,female,Confirm & accepted,30.0,120.0,Normal weight,2025-04-20 23:15:29,1,0,20.8,True,False,True
+6681,21.0,female,Confirm & accepted,31.0,140.0,Underweight,2025-04-20 23:16:33,1,0,15.8,True,False,True
+6682,21.0,female,Confirm & accepted,30.0,140.0,Underweight,2025-04-20 23:29:43,0,0,15.3,True,False,True
+6684,21.0,female,Confirm & accepted,30.0,130.0,Underweight,2025-04-20 23:31:01,0,0,17.8,True,False,True
+6685,21.0,female,Confirm & accepted,30.0,130.0,Underweight,2025-04-20 23:35:28,1,0,17.8,True,False,True
+6710,74.0,male,Confirm & accepted,174.0,172.0,Extremly Obese,2025-04-21 00:37:48,1,0,58.8,True,False,True
+6743,47.0,male,Confirm & accepted,186.0,178.0,Extremly Obese,2025-04-21 02:20:43,1,0,58.7,True,False,True
+6802,20.0,female,Confirm & accepted,154.0,168.0,Extremly Obese,2025-04-21 06:50:38,0,0,59.5,True,False,True
+6851,41.0,female,Confirm & accepted,39.0,195.0,Extremly Obese,2025-04-21 11:58:15,1,0,51.3,True,False,True
+6892,86.0,male,Confirm & accepted,172.0,172.0,Extremly Obese,2025-04-22 00:05:56,0,0,58.1,True,True,True
+6907,10.0,female,Confirm & accepted,30.0,120.0,Normal weight,2025-04-22 02:16:55,0,0,20.8,True,False,True
+6910,10.0,female,Confirm & accepted,30.0,120.0,Normal weight,2025-04-22 02:32:33,0,0,20.8,True,False,True
+6912,10.0,female,Confirm & accepted,30.0,120.0,Normal weight,2025-04-22 03:44:51,1,0,20.8,True,False,True
+6915,21.0,female,Confirm & accepted,30.0,130.0,Underweight,2025-04-22 04:12:26,1,0,17.8,True,False,True
+7000,52.0,male,Confirm & accepted,102.0,173.0,Extremly Obese,2025-04-23 00:36:44,0,0,57.8,True,False,True
+7085,13.0,male,Confirm & accepted,45.0,180.0,Underweight,2025-04-23 13:22:43,1,0,13.9,True,False,True
+7104,59.0,male,Confirm & accepted,79.0,178.0,Extremly Obese,2025-04-23 17:50:24,0,0,56.2,True,False,True
+7105,59.0,male,Confirm & accepted,79.0,178.0,Extremly Obese,2025-04-23 17:57:09,0,0,56.2,True,False,True

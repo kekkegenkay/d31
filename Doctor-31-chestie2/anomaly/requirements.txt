@@ -1,0 +1,13 @@
+pandas
+numpy
+scikit-learn
+streamlit
+sqlalchemy
+psycopg2-binary
+pdfplumber
+flask
+plotly
+shap
+xgboost
+joblib
+streamlit-aggrid
