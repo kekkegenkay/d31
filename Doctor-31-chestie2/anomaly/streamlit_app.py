@@ -10,7 +10,11 @@ import shap
 
 # --- Scikit-learn imports ---
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import IsolationForest # For unsupervised, already added in previous step
+from sklearn.ensemble import IsolationForest
+# ... other imports
+from src.anomaly_detection_svm import apply_one_class_svm # If you make a standalone SVM mode
+from src.anomaly_detection_if import apply_isolation_forest # If you make a standalone IF mode
+from src.anomaly_detection_hybrid import apply_hybrid_if_svm
 
 # --- Attempt to import AgGrid ---
 try:
@@ -193,8 +197,11 @@ if df_original_cols is not None and df_common_cols is not None:
     current_detection_mode = st.session_state.get('detection_mode_tracker', None)
     new_detection_mode = st.sidebar.radio(
         "Choose Anomaly Detection Approach:",
-        ("Rule-Based (Severity Scoring)", "AI Supervised (XGBoost)"),
-        key="detection_mode_radio" # Add a key for consistent access
+        ("Rule-Based (Severity Scoring)",
+         "AI Supervised (XGBoost)",
+         "Hybrid AI (IsolationForest + OneClassSVM)"
+         ),
+        key="detection_mode_radio"
     )
     if current_detection_mode != new_detection_mode:
         st.session_state.retrain_message = "" # Clear message on mode change
@@ -364,7 +371,27 @@ if df_original_cols is not None and df_common_cols is not None:
             elif actual_cols_rb: # Fallback
                 st.warning("streamlit-aggrid not installed. Using st.dataframe (might be slow).")
                 st.dataframe(display_subset_rb[actual_cols_rb].style.apply(highlight_severity_rule_based, axis=1))
-            
+            if not anomalous_df_rb.empty and 'max_anomaly_severity_category' in anomalous_df_rb.columns:
+                severity_counts = anomalous_df_rb['max_anomaly_severity_category'].value_counts().reset_index()
+                severity_counts.columns = ['Severity', 'Count']
+                st.subheader("Anomaly Severity Distribution (Rule-Based)")
+                fig_pie_rb_severity = px.pie(severity_counts, values='Count', names='Severity',
+                                             title='Breakdown by Anomaly Severity (Rule-Based)',
+                                             color_discrete_map={'Red': 'crimson', 'Orange': 'darkorange',
+                                                                 'Yellow': 'gold'})
+                st.plotly_chart(fig_pie_rb_severity, use_container_width=True)
+
+            # Overall Anomaly vs Normal for Rule-Based (using df_final_rb)
+            if 'is_anomaly' in df_final_rb.columns:
+                rb_overall_counts = df_final_rb['is_anomaly'].value_counts().reset_index()
+                rb_overall_counts.columns = ['Status_Bool', 'Count']
+                rb_overall_counts['Status'] = rb_overall_counts['Status_Bool'].map({True: 'Anomaly', False: 'Normal'})
+                if not rb_overall_counts.empty:
+                    st.subheader("Overall Anomaly vs. Normal (Rule-Based)")
+                    fig_pie_rb_overall = px.pie(rb_overall_counts, values='Count', names='Status',
+                                                title='Proportion Anomaly/Normal (Rule-Based)',
+                                                color_discrete_map={'Anomaly': 'crimson', 'Normal': 'lightseagreen'})
+                    st.plotly_chart(fig_pie_rb_overall, use_container_width=True)
             @st.cache_data
             def convert_df_to_csv_r_local(input_df, cols): return input_df[cols].to_csv(index=False).encode('utf-8') # Renamed for clarity
             csv_anom_rb_dl = convert_df_to_csv_r_local(anomalous_df_rb, actual_cols_rb)
@@ -487,7 +514,15 @@ if df_original_cols is not None and df_common_cols is not None:
                         st.plotly_chart(fig_scatter_ai_tab, use_container_width=True)
                 else:
                     st.info("Coloana 'ai_anomaly_score' lipsește din datele procesate pentru diagrame.")
-
+                if 'anomaly_risk_category_text' in df_ai_processed.columns:  # df_ai_processed is your dataframe with XGBoost scores
+                    risk_counts_xgb = df_ai_processed['anomaly_risk_category_text'].value_counts().reset_index()
+                    risk_counts_xgb.columns = ['Risk Category', 'Count']
+                    st.subheader("Anomaly Risk Distribution (XGBoost)")  # You can reuse this subheader if it exists
+                    fig_pie_xgb_risk = px.pie(risk_counts_xgb, values='Count', names='Risk Category',
+                                              title='Distribution by AI Risk Category (XGBoost)',
+                                              color_discrete_map={'Red': 'crimson', 'Orange': 'darkorange',
+                                                                  'Yellow': 'gold', 'Green': 'lightseagreen'})
+                    st.plotly_chart(fig_pie_xgb_risk, use_container_width=True)
 
             with tab2_unsupervised_explore:
                 st.subheader("Unsupervised Anomaly Exploration on 'Rule-Normal' Data")
@@ -577,6 +612,90 @@ if df_original_cols is not None and df_common_cols is not None:
                         st.warning("Potential new anomalies found, but no columns configured for display in the exploration table.")
                     else:
                         st.success("Isolation Forest did not flag any significant new outliers on the 'rule-normal' data with current settings (or no 'rule-normal' data was processed).")
+        elif selected_mode_for_main_panel == "Hybrid AI (IsolationForest + OneClassSVM)":
+            st.header("Hybrid Anomaly Detection (Isolation Forest + One-Class SVM)")
+
+            if df_common_cols is None:  # Ensure data is loaded
+                st.error("Common features data not loaded. Cannot proceed with Hybrid AI mode.")
+                st.stop()
+
+            # Define features for these models
+            # These should be numerical features suitable for IF and SVM
+            features_for_hybrid = ["age", "weight", "height", "bmi"]  # Adjust as necessary
+
+            # Check if all required features are present in df_common_cols
+            missing_features = [f for f in features_for_hybrid if f not in df_common_cols.columns]
+            if missing_features:
+                st.error(
+                    f"Missing features for Hybrid AI model: {missing_features}. Please ensure they are in `df_common_cols`.")
+                st.stop()
+
+            # Ensure data for features is numeric and handle potential infinities
+            df_hybrid_input = df_common_cols.copy()
+            for feature in features_for_hybrid:
+                df_hybrid_input[feature] = pd.to_numeric(df_hybrid_input[feature], errors='coerce')
+            df_hybrid_input = df_hybrid_input.replace([np.inf, -np.inf], np.nan)
+            # Imputation is handled within the apply_ functions for simplicity, but can be done here too.
+
+            st.sidebar.subheader("Hybrid Model Parameters")
+            # Add sliders for user-configurable parameters
+            if_contamination_hybrid = st.sidebar.slider("Isolation Forest Contamination (Hybrid)", 0.01, 0.5, 0.05,
+                                                        0.01, key="if_cont_hybrid")
+            svm_nu_hybrid = st.sidebar.slider("One-Class SVM Nu (Hybrid)", 0.01, 0.5, 0.05, 0.01, key="svm_nu_hybrid")
+            # Weights are fixed at 0.5 for now as per requirement, but could be configurable too.
+
+            with st.spinner("Applying Hybrid (IF+SVM) model..."):
+                df_hybrid_results = apply_hybrid_if_svm(
+                    df_hybrid_input,
+                    features=features_for_hybrid,
+                    if_contamination=if_contamination_hybrid,
+                    svm_nu=svm_nu_hybrid
+                    # weights are 0.5 by default in the function
+                )
+
+            st.subheader("Hybrid Model Results")
+            st.write(
+                f"Data processed. Found {len(df_hybrid_results[df_hybrid_results['hybrid_anomaly'] == -1])} anomalies (Hybrid IF+SVM).")
+
+            # Display results in AgGrid (similar to your other modes)
+            cols_to_show_hybrid = features_for_hybrid + ['id_case', 'hybrid_anomaly_score', 'hybrid_anomaly',
+                                                         'norm_if_score_for_hybrid', 'norm_svm_score_for_hybrid']
+            # Add original IF/SVM scores if desired: 'if_anomaly_score', 'svm_anomaly_score'
+            # Add original IF/SVM predictions: 'if_anomaly', 'svm_anomaly'
+            if 'if_anomaly_score' in df_hybrid_results.columns: cols_to_show_hybrid.append('if_anomaly_score')
+            if 'svm_anomaly_score' in df_hybrid_results.columns: cols_to_show_hybrid.append('svm_anomaly_score')
+
+            actual_cols_hybrid = [col for col in cols_to_show_hybrid if col in df_hybrid_results.columns]
+
+            # Sort by hybrid_anomaly_score (higher is more anomalous)
+            df_display_hybrid = df_hybrid_results.sort_values(by="hybrid_anomaly_score", ascending=False)
+
+            if AGGRID_AVAILABLE and actual_cols_hybrid:
+                gb_hybrid = GridOptionsBuilder.from_dataframe(df_display_hybrid[actual_cols_hybrid])
+                gb_hybrid.configure_pagination(paginationAutoPageSize=False, paginationPageSize=25)
+                gb_hybrid.configure_default_column(editable=False, filterable=True, sortable=True, resizable=True,
+                                                   wrapText=True, autoHeight=True)
+                # Optional: Add cell styling for 'hybrid_anomaly' column
+                gridOptions_hybrid = gb_hybrid.build()
+                AgGrid(df_display_hybrid[actual_cols_hybrid], gridOptions=gridOptions_hybrid, height=600,
+                       fit_columns_on_grid_load=False, theme='streamlit', key='aggrid_hybrid')
+            elif actual_cols_hybrid:
+                st.dataframe(df_display_hybrid[actual_cols_hybrid])
+            else:
+                st.info("No data to display for Hybrid AI model or columns missing.")
+
+            # --- Pie Chart for Hybrid Model ---
+            if 'hybrid_anomaly' in df_hybrid_results.columns and df_hybrid_results['hybrid_anomaly'].notna().any():
+                hybrid_anomaly_counts = df_hybrid_results['hybrid_anomaly'].value_counts().reset_index()
+                hybrid_anomaly_counts.columns = ['Status Code', 'Count']
+                hybrid_anomaly_counts['Status'] = hybrid_anomaly_counts['Status Code'].map({-1: 'Anomaly', 1: 'Normal'})
+
+                if not hybrid_anomaly_counts.empty:
+                    st.subheader("Anomaly Distribution (Hybrid IF+SVM)")
+                    fig_pie_hybrid = px.pie(hybrid_anomaly_counts, values='Count', names='Status',
+                                            title='Proportion of Anomalies (Hybrid IF+SVM)',
+                                            color_discrete_map={'Anomaly': 'crimson', 'Normal': 'lightseagreen'})
+                    st.plotly_chart(fig_pie_hybrid, use_container_width=True)
         else: # This else is for the if model_ai and scaler_ai: confusing aaah code
             st.error("AI Model (supervised) or scaler not available. Cannot proceed with AI mode operations.")
 
